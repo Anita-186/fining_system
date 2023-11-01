@@ -20,5 +20,14 @@
     <span class="psw">Forgot <a href="#">password?</a></span></div>
     
   </div>
+
+  <script>
+    function ajax(method, url, data, async = true) {
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.onload = function() {return this.responseText;}
+        xmlhttp.open("GET", "gethint.php?q=" + str);
+        xmlhttp.send();
+    }
+  </script>
 </body>
 </html>
