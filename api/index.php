@@ -19,13 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     //
     if ($_GET["url"] == "fetch-all-official") {
-        # code...
+        die(json_encode($user->fetchAllOfficial()));
     }
 
     //
     elseif ($_GET["url"] == "fetch-official") {
         # code...
     }
+
     //
     elseif ($_GET["url"] == "fetch-all-offense") {
         die(json_encode($user->fetchAllOffense()));
