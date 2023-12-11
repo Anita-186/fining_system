@@ -18,6 +18,7 @@ if (!isset($_SESSION["_userLogToken"])) {
     <div class="container">
         <form action="" id="LoginForm">
             <h1 class="mb-4">Login</h1>
+            <div class="alert" role="alert"></div>
             <div class="mb-3">
                 <label for="username"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="username" required class="form-control" />
