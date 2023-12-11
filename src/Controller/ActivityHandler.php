@@ -24,14 +24,12 @@ class ActivityHandler
         return array("success" => false, "message" => "Failed to reset user account password!");
     }
 
-    public function verifyUserLogin($data)
+    public function verifyUserLogin($username, $password)
     {
         $sql = "SELECT * FROM `login` WHERE `username` = :u";
-        $result = $this->conn->getData($sql, array(':u' => $data["username"]));
-        if (!empty($data)) {
-            if (password_verify($data["password"], $result[0]["password"])) return $result;
-        }
-        return 0;
+        $result = $this->conn->getData($sql, array(':u' => $username));
+        if (!empty($data)) return 0;
+        if (password_verify($password, $result[0]["password"])) return $result;
     }
 
     //CRUD for officals

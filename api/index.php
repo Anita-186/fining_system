@@ -7,8 +7,12 @@ header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+require "../bootstrap.php";
+
+use Src\Controller\ExposeDataController;
 use Src\Controller\ActivityHandler;
 
+$expose = new ExposeDataController();
 $user = new ActivityHandler();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -34,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if ($_GET["url"] == "user-login") {
+
         if (!isset($_POST["email"]) || empty($_POST["email"]))
             die(json_encode(array("success" => false, "message" => "Email address required!")));
         if (!isset($_POST["password"]) || empty($_POST["password"]))
@@ -49,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $password = $expose->validatePassword($_POST["password"]);
         $result = $user->verifyUserLogin($username, $password);
 
-        if (!$result) {
+        if (empty($result)) {
             $_SESSION['userLogSuccess'] = false;
             die(json_encode(array("success" => false, "message" => "Incorrect application username or password! ")));
         }
