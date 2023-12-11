@@ -1,5 +1,8 @@
 <?php
-require_once "DatabaseConnector.php";
+
+namespace Src\Controller;
+
+use Src\System\DatabaseConnector;
 
 class ActivityHandler
 {

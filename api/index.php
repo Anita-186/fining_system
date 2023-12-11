@@ -7,7 +7,8 @@ header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once "../src/ActivityHandler.php";
+use Src\Controller\ActivityHandler;
+
 $user = new ActivityHandler();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -33,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if ($_GET["url"] == "user-login") {
-        if (!isset($_POST["username"]) || empty($_POST["username"]))
-            die(json_encode(array("success" => false, "message" => "Username required!")));
+        if (!isset($_POST["email"]) || empty($_POST["email"]))
+            die(json_encode(array("success" => false, "message" => "Email address required!")));
         if (!isset($_POST["password"]) || empty($_POST["password"]))
             die(json_encode(array("success" => false, "message" => "Password required!")));
         if (!isset($_SESSION["_userLogToken"]) || empty($_SESSION["_userLogToken"]))
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         if ($_POST["_vALToken"] !== $_SESSION["_userLogToken"])
             die(json_encode(array("success" => false, "message" => "Invalid request: 3!")));
 
-        $username = $expose->validateText($_POST["username"]);
+        $username = $expose->validateText($_POST["email"]);
         $password = $expose->validatePassword($_POST["password"]);
         $result = $user->verifyUserLogin($username, $password);
 
